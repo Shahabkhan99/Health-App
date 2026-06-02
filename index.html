@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LifeFlow Pro</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        
+<div id="auth-screen" class="screen active slide-up">
+    <div class="glass-card" style="margin: auto; width: 100%; text-align: center; max-width: 400px;">
+        <h1 style="color: var(--primary); margin-bottom: 10px;">LifeFlow Pro</h1>
+        
+        <div style="margin-bottom: 20px;">
+            <button class="tab-btn active" id="tab-login" onclick="switchAuthTab('login')">Login</button>
+            <button class="tab-btn" id="tab-register" onclick="switchAuthTab('register')">New Profile</button>
+        </div>
+        
+        <div id="auth-input-area">
+            <input type="text" id="user-name" placeholder="Enter username" autocomplete="off">
+            
+            <div id="register-fields" class="auth-tab">
+                <div class="gender-toggle" style="margin-top: 10px; margin-bottom: 15px;">
+                    <button class="gender-btn" data-gender="male">👨 Male</button>
+                    <button class="gender-btn" data-gender="female">👩 Female</button>
+                </div>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px; margin-bottom: 5px;">Select 4 emojis as your PIN:</p>
+            <div class="emoji-display" id="emoji-display"></div>
+            <div class="emoji-grid" id="emoji-grid">
+                </div>
+            <button class="btn" style="background: var(--text-muted); padding: 5px; width: auto; margin-bottom: 15px; font-size: 0.8rem;" onclick="clearEmojis()">Clear PIN</button>
+
+            <button class="btn" id="login-btn">Enter App</button>
+        </div>
+
+        <div id="backup-load-area" style="margin-top: 10px; padding-top: 15px;">
+            <p id="backup-text" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">No profiles found on this device.</p>
+            <input type="file" id="import-auth-file" style="display:none;" accept=".json" onchange="importAuthJSON(event)">
+            <button class="btn" style="background:#10b981;" onclick="document.getElementById('import-auth-file').click()">📂 Load Backup File</button>
+        </div>
+    </div>
+</div>
+
+        <div id="dashboard-screen" class="screen hidden fade-in">
+            <header class="glass-header">
+                <h2 id="greeting-text">Hello!</h2>
+                <div>
+                    <button onclick="toggleDarkMode()" class="icon-btn" title="Dark Mode">🌙</button>
+                    <button onclick="logout()" class="icon-btn" title="Logout" style="margin-left: 10px; color: var(--danger);">🚪</button>
+                </div>
+            </header>
+            <div class="dashboard-grid" id="menu-grid"></div>
+        </div>
+
+        <div id="detail-screen" class="screen hidden">
+            <header class="glass-header">
+                <button onclick="closeDetail()" class="icon-btn">⬅️ Back</button>
+                <h2 id="detail-title">Title</h2>
+                <div style="width: 30px;"></div>
+            </header>
+            <div id="detail-content" class="scrollable"></div>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="hidden">
+        <div id="modal-content" class="glass-card slide-up"></div>
+    </div>
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+    </script>
+</body>
+</html>

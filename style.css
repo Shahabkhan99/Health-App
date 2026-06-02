@@ -1,0 +1,168 @@
+:root {
+    /* Default / Male Theme (Blue) */
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --bg-color-1: #e0eafc;
+    --bg-color-2: #cfdef3;
+    
+    /* Global App Colors */
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --danger: #ef4444;
+}
+
+/* Override variables when Female is selected */
+body.theme-pink {
+    --primary: #ec4899;
+    --primary-hover: #db2777;
+    --bg-color-1: #fce7f3;
+    --bg-color-2: #fbcfe8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+body { 
+    background: linear-gradient(135deg, var(--bg-color-1) 0%, var(--bg-color-2) 100%); 
+    color: var(--text-main); 
+    height: 100vh; 
+    overflow: hidden; 
+    transition: background 0.5s ease; /* Smooth background transition */
+}
+
+#app-container { max-width: 500px; margin: 0 auto; height: 100vh; position: relative; }
+
+.screen { padding: 20px; height: 100%; display: flex; flex-direction: column; }
+.hidden { display: none !important; }
+
+/* Glass Elements */
+.glass-header { background: var(--glass-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border); padding: 15px 20px; border-radius: 0 0 20px 20px; display: flex; justify-content: space-between; align-items: center; margin: -20px -20px 20px -20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.glass-card { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+/* Dashboard */
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+.menu-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 30px 15px; text-align: center; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.menu-card:active { transform: scale(0.95); background: var(--primary); color: white; }
+
+/* Forms & Buttons */
+input, select { width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.9); border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-main); outline: none; transition: 0.3s; }
+input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+.btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.3s;}
+.btn:hover { background: var(--primary-hover); }
+.btn-danger { background: var(--danger); }
+.icon-btn { background: none; border: none; color: var(--text-main); font-size: 1.2rem; cursor: pointer; }
+
+/* Gender Buttons */
+.gender-toggle { display: flex; gap: 10px; margin-bottom: 15px; }
+.gender-btn { flex: 1; padding: 15px; background: rgba(255,255,255,0.8); border: 2px solid transparent; border-radius: 8px; color: var(--text-main); font-size: 1rem; cursor: pointer; transition: 0.3s; }
+.gender-btn.selected { background: white; border-color: var(--primary); color: var(--primary); font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+/* Lists & Misc */
+.list-item { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+.timer-display { font-size: 3rem; font-weight: bold; text-align: center; margin: 20px 0; color: var(--primary); font-family: monospace; }
+
+/* Custom Modal Overlay */
+#modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center; padding: 20px; }
+#modal-content { width: 100%; max-width: 400px; }
+
+/* Custom Toasts */
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; }
+.toast { background: var(--primary); color: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: slideInRight 0.3s forwards; font-weight: bold; }
+
+/* Animations */
+.scrollable { overflow-y: auto; height: 100%; padding-bottom: 20px; }
+.fade-in { animation: fadeIn 0.3s; }
+.slide-up { animation: slideUp 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+/* Calendar Grid Additions (Fixed Shape) */
+.cal-grid { 
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 8px; /* Slightly more breathing room */
+    text-align: center; 
+    max-width: 350px; /* Keeps the calendar from getting too wide */
+    margin: 0 auto; /* Centers the calendar */
+}
+.cal-header { 
+    font-weight: bold; 
+    color: var(--text-muted); 
+    font-size: 0.8rem; 
+    padding-bottom: 5px; 
+}
+.cal-day { 
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    font-size: 0.9rem; 
+    background: rgba(255, 255, 255, 0.6); 
+    color: var(--text-main); 
+    margin: auto;
+    transition: 0.2s;
+    cursor: pointer; /* Makes it clear it is clickable */
+}
+.cal-day:hover {
+    background: var(--bg-color-2);
+    transform: scale(1.1);
+}
+.period-day { 
+    background: var(--danger); 
+    color: white; 
+    font-weight: bold; 
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); 
+    border: none;
+}
+.ovulation-day { 
+    background: #8b5cf6; 
+    color: white; 
+    font-weight: bold; 
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3); 
+    border: none;
+}
+/* AMOLED Dark Mode Overrides */
+body.theme-amoled {
+    --bg-color-1: #000000;
+    --bg-color-2: #0f0f0f;
+    --glass-bg: rgba(20, 20, 20, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+}
+body.theme-amoled input, body.theme-amoled select { background: rgba(0,0,0,0.5); color: white; color-scheme: dark; }
+body.theme-amoled .list-item { background: rgba(255,255,255,0.05); }
+
+/* Macro Bars */
+.macro-container { margin-bottom: 10px; }
+.macro-label { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: bold; margin-bottom: 3px; }
+.macro-bar { height: 8px; width: 100%; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; }
+body.theme-amoled .macro-bar { background: rgba(255,255,255,0.1); }
+.macro-fill { height: 100%; border-radius: 4px; transition: 0.5s; }
+.fill-pro { background: #ef4444; }
+.fill-carb { background: #3b82f6; }
+.fill-fat { background: #eab308; }
+
+/* Photo Gallery Grid */
+.gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+.gallery-item { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1px solid var(--glass-border); }
+
+/* Streak Fire */
+.streak-fire { color: #f97316; font-weight: bold; font-size: 1.1rem; }
+
+/* Emoji Auth Styles */
+.auth-tab { display: none; }
+.auth-tab.active { display: block; }
+.tab-btn { background: none; border: none; font-size: 1rem; color: var(--text-muted); cursor: pointer; padding: 10px; margin: 0 10px; font-weight: bold; border-bottom: 2px solid transparent; }
+.tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
+
+.emoji-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 15px 0; }
+.emoji-btn { font-size: 1.5rem; background: rgba(255,255,255,0.5); border: 1px solid var(--glass-border); border-radius: 8px; cursor: pointer; transition: 0.2s; padding: 5px; }
+body.theme-amoled .emoji-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+.emoji-btn:hover { background: rgba(255,255,255,0.8); }
+.emoji-display { font-size: 1.5rem; letter-spacing: 5px; margin-bottom: 10px; min-height: 35px; background: rgba(0,0,0,0.05); border-radius: 5px; padding: 5px; display: flex; align-items: center; justify-content: center; }
+body.theme-amoled .emoji-display { background: rgba(255,255,255,0.05); }
